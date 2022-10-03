@@ -1,4 +1,4 @@
-function congruencialLineal(x, a, c, mod){
+ function congruencialLineal(x, a, c, mod){
     period = 0
     flag = 0
     ri = 0
@@ -17,4 +17,4 @@ function congruencialLineal(x, a, c, mod){
 
 }
 
-congruencialLineal(4,5,7,8)
+//export {congruencialLineal}
