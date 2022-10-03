@@ -19,6 +19,7 @@ function mixedMethod(x, a, c, mod){
    period = 0
    flag = 0
    ri = 0
+   
    while (flag != x){
        if(flag == 0){
            flag = x
