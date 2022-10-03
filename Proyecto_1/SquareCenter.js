@@ -44,4 +44,4 @@ function squareCenterMethod(seed){
     }
 }
 
-squareCenterMethod(3547)
+//squareCenterMethod(3547)
