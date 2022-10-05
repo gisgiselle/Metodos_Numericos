@@ -1,3 +1,6 @@
+/** Clase que genera números aleatorios utilizando 
+ * el método congruencial combinado.
+  */
 function congruencialMultiplicativo(x, a, mod){
     period = 0
     flag = 0
