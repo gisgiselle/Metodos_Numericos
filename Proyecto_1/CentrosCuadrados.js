@@ -4,20 +4,13 @@
  * Utiliza el método de centros cuadrados, 
  * también llamado cuadrados medios*/  
 class CentrosCuadrados {
-    /** Constructor para inicializar el objeto
-     * 
-     * @constructor
-     */
-    constructor(seed){
-        this.seed = seed
-    }
+
 
     /** Realiza el cálculo para generar números aleatorios
      * 
      * @param {int} seed - Semilla generadora.
      *  Debe ser un número entero de 4 dígitos decimales
      */
-
     squareCenterMethod(seed){
         /*diccionario que recibe como llave el número aleatorio
         funciona para identificar en qué momento se repite un número aleatorio
@@ -71,5 +64,5 @@ class CentrosCuadrados {
 }
 
 
-//const obj = new CentrosCuadrados(3547)
+//const obj = new CentrosCuadrados()
 //obj.squareCenterMethod(3547)
