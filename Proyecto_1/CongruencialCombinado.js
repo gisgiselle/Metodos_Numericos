@@ -24,13 +24,13 @@ class CongruencialCombinado {
         return arr
     }
 
-    /**
+    /** Función que combina dos o más generadores congruentes multiplicativos 
+     * para tener un periodo más largo
      * 
-     * @param {*} x 
-     * @param {*} a 
-     * @param {*} mod 
-     * @param {*} k 
-     * @returns 
+     * @param {*} x - Valor inicial o semilla
+     * @param {*} a - Multiplicador
+     * @param {*} mod - Módulo
+     * @param {*} k - Número de repeticiones
      */
     congruencialCombinado(x,a,mod,k){
         var yi = 0
