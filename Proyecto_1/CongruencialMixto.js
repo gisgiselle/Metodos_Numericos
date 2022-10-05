@@ -1,6 +1,3 @@
-//funciones maximoComunDivisor y esPrimo obtenidas de https://parzibyte.me/blog/2019/10/04/javascript-numero-primo/
-//import { congruencialLineal } from "./CongruencialLineal";
-
 /** Clase para generar números aleatorios entre 0 y 1 utilizando
  * el método Congruencial Mixto
  * 
@@ -10,6 +7,7 @@ class CongruencialMixto {
 
     /** Obtiene el máximo comun divisor entre dos números
      * 
+     * Referenciado de https://parzibyte.me/blog/2019/10/04/javascript-numero-primo/
      * @param {int} a - Primer número
      * @param {int} b - Segundo número
      * @returns - Regresa el maximo comun divisor
