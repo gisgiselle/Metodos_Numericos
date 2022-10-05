@@ -47,10 +47,15 @@ class CentrosCuadrados {
                 
             }else {
                 randomNumbersDict[randomNumber]=2
+
                 return randomNumber
+
                 
             }    
+            console.log(randomNumber)
+
             seed = randomNumber
+           
 
         }
     }
