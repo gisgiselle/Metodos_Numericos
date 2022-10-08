@@ -2,6 +2,15 @@ class ChiCuadrada{
      Ho= "Muestra proviene de la distribución"
      Hi = "Muestra NO proviene de la distribución"
 
+    modelo_teorico = {
+        uniforme:0,
+        binomial:1,
+        geometrica:2,
+        poisson:3,
+        exponencial_negativa:4,
+        normal:5
+
+     }
      //** Función para redondear decimales a 5 Utilizada en pruebaChiCuadrada*/
     round5(x){
         var decimal = x - Math.floor(x)
@@ -19,7 +28,7 @@ class ChiCuadrada{
 
 
 
-    pruebaChiCuadrada(muestra){
+    pruebaChiCuadrada(muestra, modelo_teorico){
         var sum = 0
         var tabla_init = [] 
         var tabla_red = []
@@ -41,6 +50,8 @@ class ChiCuadrada{
         var j = 0
         var clase0_helper = []
         var clase_helper = []
+        var tabla_probabilidad = []
+        var probabilidad = 0
 
         for (j; j < k ; j++){
             var f0abs = 0
@@ -75,14 +86,32 @@ class ChiCuadrada{
                
 
              }else{
-                tabla_red.push([rango_clase,f0abs])
-             }
-            
+                tabla_red.push([rango_clase,f0abs,0])
+             }   
         }
-        tabla_red.push([rangoC2,sumF0])
+        tabla_red.push([rangoC2,sumF0,0])
+
+        const tabla_red_length = tabla_red.length
+
+        //definir modelo teorico para sacar la probabilidad
+        switch(modelo_teorico){
+            //uniforme
+            case 0:
+                probabilidad = n / k
+    
+                for(var nm = 0; nm < tabla_red_length; nm++){
+                    tabla_red[nm][2] = probabilidad
+                }
+              
+                break;
+                
+            }        
+
+
 
         for(var i = 0; i <= muestra.length; i++) {
 
+            //FEI = PROBABILIDAD*MUESTRA.LENGTH
             //Restar cada frecuencia esperada menos
             // cada frecuencia observado FO[i]-FE[i]
 
@@ -105,4 +134,4 @@ muestra = [8.223,2.230,2.920,0.761,1.064,0.836,3.810,0.968,4.490,0.186,
     2.343,0.538,5.088,5.587,0.517,1.458,0.234,1.401,0.685,2.330,0.774,
     3.323,0.294,1.725,2.563,0.023,3.334,3.491,1.267,0.511,0.225,2.325,
     2.921, 1.702,6.426,3.214,7.514,0.334,1.849]
-obj.pruebaChiCuadrada(muestra)
+obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.uniforme)
