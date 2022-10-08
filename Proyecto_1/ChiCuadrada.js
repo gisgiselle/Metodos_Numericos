@@ -25,6 +25,14 @@ class ChiCuadrada{
             return x
         } 
      }
+    
+    //** Función para calcular el factorial de un número */
+    factorialRecursivo (n) { 
+        if (n == 0){ 
+            return 1; 
+        }
+        return n * this.factorialRecursivo (n-1); 
+    }
 
 
 
@@ -102,10 +110,45 @@ class ChiCuadrada{
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     tabla_red[nm][2] = probabilidad
                 }
-              
                 break;
-                
-            }        
+            //binomial
+            case 1:
+                for(var nm = 0; nm < tabla_red_length; nm++){
+                    var helper = n - tabla_red[nm][1] 
+                    var nCx = this.factorialRecursivo(n) / (this.factorialRecursivo(tabla_red[nm][1]))*(this.factorialRecursivo(helper))
+                    console.log(nCx)
+
+                    //FALTA CUAL SERIA LA PROBABILIDAD DE EXITOS
+                    //probabilidad = nCx * 
+                    tabla_red[nm][2] = probabilidad
+                }
+                break; 
+
+            //geometrica
+            case 2:
+                console.log("")   
+                break;
+
+            //poisson    
+            case 3:
+                console.log("")   
+                break;
+            
+            //exponencial negativa
+            case 4:
+                var tot_helper = 0
+                var avg = 0.0
+                var lambda = 0
+                for(var i = 0; i < muestra.length; i++){ 
+                        tot_helper += muestra[i] 
+                }
+                avg = tot_helper / muestra.length
+                lambda = 1/avg
+                console.log(lambda)
+
+                //probabilidad = lambda * (Math.E ** (-lambda* ))
+            }     
+            
 
 
 
@@ -134,4 +177,4 @@ muestra = [8.223,2.230,2.920,0.761,1.064,0.836,3.810,0.968,4.490,0.186,
     2.343,0.538,5.088,5.587,0.517,1.458,0.234,1.401,0.685,2.330,0.774,
     3.323,0.294,1.725,2.563,0.023,3.334,3.491,1.267,0.511,0.225,2.325,
     2.921, 1.702,6.426,3.214,7.514,0.334,1.849]
-obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.uniforme)
+obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.exponencial_negativa)
