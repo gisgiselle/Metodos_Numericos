@@ -34,9 +34,7 @@ class ChiCuadrada{
         return n * this.factorialRecursivo (n-1); 
     }
 
-
-
-    pruebaChiCuadrada(muestra, modelo_teorico){
+    pruebaChiCuadrada(muestra, modelo_teorico,alpha){
         var sum = 0
         var tabla_init = [] 
         var tabla_red = []
@@ -202,22 +200,13 @@ class ChiCuadrada{
 
 
             }     
-        
 
-        
-
-
-        for(var i = 0; i <= muestra.length; i++) {
-
-            //Restar cada frecuencia esperada menos
+        //Dividir entre el valor esperado de la tabla 
+        //con v grados de libertad: v=(k-1) y significancia alpha
+        var grados = k -1
+    
 
 
-
-            //Dividir entre el valor esperado de la tabla 
-            //con v grados de libertad: v=(k-1) y significancia alpha
-
-
-        }
         //Cambiar nombre de columnas
         console.table(tabla_init)
         console.table(tabla_red)
@@ -230,4 +219,5 @@ muestra = [8.223,2.230,2.920,0.761,1.064,0.836,3.810,0.968,4.490,0.186,
     2.343,0.538,5.088,5.587,0.517,1.458,0.234,1.401,0.685,2.330,0.774,
     3.323,0.294,1.725,2.563,0.023,3.334,3.491,1.267,0.511,0.225,2.325,
     2.921, 1.702,6.426,3.214,7.514,0.334,1.849]
-obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.exponencial_negativa)
+alpha = 0.05
+obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.exponencial_negativa,alpha)
