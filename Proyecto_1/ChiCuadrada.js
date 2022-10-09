@@ -58,7 +58,6 @@ class ChiCuadrada{
         var j = 0
         var clase0_helper = []
         var clase_helper = []
-        var tabla_probabilidad = []
         var probabilidad = 0
 
         for (j; j < k ; j++){
@@ -106,7 +105,7 @@ class ChiCuadrada{
             //uniforme
             case 0:
                 probabilidad = n / k
-    
+
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     tabla_red[nm][2] = probabilidad
                 }
@@ -116,10 +115,9 @@ class ChiCuadrada{
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     var helper = n - tabla_red[nm][1] 
                     var nCx = this.factorialRecursivo(n) / (this.factorialRecursivo(tabla_red[nm][1]))*(this.factorialRecursivo(helper))
-                    console.log(nCx)
 
                     //FALTA CUAL SERIA LA PROBABILIDAD DE EXITOS
-                    //probabilidad = nCx * 
+                    //probabilidad = nCx 
                     tabla_red[nm][2] = probabilidad
                 }
                 break; 
@@ -139,14 +137,49 @@ class ChiCuadrada{
                 var tot_helper = 0
                 var avg = 0.0
                 var lambda = 0
+
                 for(var i = 0; i < muestra.length; i++){ 
                         tot_helper += muestra[i] 
                 }
-                avg = tot_helper / muestra.length
-                lambda = 1/avg
-                console.log(lambda)
 
-                //probabilidad = lambda * (Math.E ** (-lambda* ))
+                avg = tot_helper / muestra.length
+                //lambda = 1/avg
+                lambda = 0.5
+
+                var proba_anterior = []
+
+                for(var nm = 0; nm < tabla_red_length; nm++){
+                    probabilidad = 1- (Math.E ** (-lambda*tabla_red[nm][0][1]))
+                    probabilidad = Math.round(probabilidad * 1000) / 1000
+                    console.log("probabilidad: " + probabilidad)
+                    let i = 0
+                    while(i < proba_anterior.length){
+                        console.log(" restando "+probabilidad+ " menos "+proba_anterior[i])
+                        probabilidad =  probabilidad -proba_anterior[i]
+                        console.log("resultado resta: "+probabilidad)
+                        i++
+
+                    }
+
+                    console.log(" ")
+                    console.log("proba final "+probabilidad)
+                    proba_anterior.push(probabilidad)
+                    console.log(" ")
+
+                    tabla_red[nm][2] = probabilidad
+
+                }
+                for (let i = 0; i < proba_anterior.length-1; i += 1) {
+                    console.log("SUMANDO "+sum + " + "+proba_anterior[i])
+                    sum += proba_anterior[i] 
+                    console.log(sum)        
+                }
+
+                sum = 1 - sum
+                sum = Math.round(sum * 1000) / 1000
+
+                tabla_red[tabla_red_length-1][2] = sum
+
             }     
             
 
