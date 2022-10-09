@@ -59,6 +59,7 @@ class ChiCuadrada{
         var clase0_helper = []
         var clase_helper = []
         var probabilidad = 0
+        var fei = 0
 
         for (j; j < k ; j++){
             var f0abs = 0
@@ -93,10 +94,10 @@ class ChiCuadrada{
                
 
              }else{
-                tabla_red.push([rango_clase,f0abs,0])
+                tabla_red.push([rango_clase,f0abs,0,0])
              }   
         }
-        tabla_red.push([rangoC2,sumF0,0])
+        tabla_red.push([rangoC2,sumF0,0,0])
 
         const tabla_red_length = tabla_red.length
 
@@ -114,11 +115,11 @@ class ChiCuadrada{
             case 1:
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     var helper = n - tabla_red[nm][1] 
-                    var nCx = this.factorialRecursivo(n) / (this.factorialRecursivo(tabla_red[nm][1]))*(this.factorialRecursivo(helper))
+                    var nCx = this.factorialRecursivo(n) / (this.factorialRecursivo(tabla_red[nm][1][0]))*(this.factorialRecursivo(helper))
 
                     //FALTA CUAL SERIA LA PROBABILIDAD DE EXITOS
                     //probabilidad = nCx 
-                    tabla_red[nm][2] = probabilidad
+                    tabla_red[nm][2][0] = probabilidad
                 }
                 break; 
 
@@ -151,28 +152,21 @@ class ChiCuadrada{
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     probabilidad = 1- (Math.E ** (-lambda*tabla_red[nm][0][1]))
                     probabilidad = Math.round(probabilidad * 1000) / 1000
-                    console.log("probabilidad: " + probabilidad)
                     let i = 0
+
                     while(i < proba_anterior.length){
-                        console.log(" restando "+probabilidad+ " menos "+proba_anterior[i])
                         probabilidad =  probabilidad -proba_anterior[i]
-                        console.log("resultado resta: "+probabilidad)
                         i++
 
                     }
-
-                    console.log(" ")
-                    console.log("proba final "+probabilidad)
                     proba_anterior.push(probabilidad)
-                    console.log(" ")
 
                     tabla_red[nm][2] = probabilidad
 
                 }
+
                 for (let i = 0; i < proba_anterior.length-1; i += 1) {
-                    console.log("SUMANDO "+sum + " + "+proba_anterior[i])
                     sum += proba_anterior[i] 
-                    console.log(sum)        
                 }
 
                 sum = 1 - sum
@@ -180,14 +174,20 @@ class ChiCuadrada{
 
                 tabla_red[tabla_red_length-1][2] = sum
 
-            }     
-            
+                //FEI = PROBABILIDAD*MUESTRA.LENGTH
 
+                for(var nm = 0; nm < tabla_red_length; nm++){
+                    fei = tabla_red[nm][2] * muestra.length
+                    tabla_red[nm][3] = Math.round(fei * 1000) / 1000
+                }
+            }     
+        
+
+        
 
 
         for(var i = 0; i <= muestra.length; i++) {
 
-            //FEI = PROBABILIDAD*MUESTRA.LENGTH
             //Restar cada frecuencia esperada menos
             // cada frecuencia observado FO[i]-FE[i]
 
