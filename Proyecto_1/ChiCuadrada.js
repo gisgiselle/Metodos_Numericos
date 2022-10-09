@@ -41,6 +41,7 @@ class ChiCuadrada{
         var tabla_init = [] 
         var tabla_red = []
         var sumF0 = 0
+        var sumRes = []
 
         //Ordenar frecuencias observables
         muestra.sort()
@@ -94,10 +95,10 @@ class ChiCuadrada{
                
 
              }else{
-                tabla_red.push([rango_clase,f0abs,0,0])
+                tabla_red.push([rango_clase,f0abs,0,0,0])
              }   
         }
-        tabla_red.push([rangoC2,sumF0,0,0])
+        tabla_red.push([rangoC2,sumF0,0,0,0])
 
         const tabla_red_length = tabla_red.length
 
@@ -175,11 +176,31 @@ class ChiCuadrada{
                 tabla_red[tabla_red_length-1][2] = sum
 
                 //FEI = PROBABILIDAD*MUESTRA.LENGTH
-
+                var resta = 0.0
+                var xi2 = 0.0
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     fei = tabla_red[nm][2] * muestra.length
                     tabla_red[nm][3] = Math.round(fei * 1000) / 1000
+
+                    // cada frecuencia observado FO[i]-FE[i]
+                    resta = tabla_red[nm][1]-tabla_red[nm][3]
+
+                    //Elevar al cuadrado la resta (FO[i]-FE[i]))^2
+                    xi2 = (resta **2)/tabla_red[nm][3]
+                    tabla_red[nm][4] = Math.round(xi2 * 1000) / 1000
+
                 }
+
+                for(var i=0;i<tabla_red_length;i++){
+                    for(var j=0;j<tabla_red[i].length;j++){
+                     sumRes[j] = (sumRes[j] || 0) + tabla_red[i][j];                    
+                     sumRes[j] = Math.round(sumRes[j] * 1000) / 1000
+
+                    }
+                }
+                tabla_red.push(sumRes);
+
+
             }     
         
 
@@ -189,9 +210,8 @@ class ChiCuadrada{
         for(var i = 0; i <= muestra.length; i++) {
 
             //Restar cada frecuencia esperada menos
-            // cada frecuencia observado FO[i]-FE[i]
 
-            //Elevar al cuadrado la resta (FO[i]-FE[i]))^2
+
 
             //Dividir entre el valor esperado de la tabla 
             //con v grados de libertad: v=(k-1) y significancia alpha
