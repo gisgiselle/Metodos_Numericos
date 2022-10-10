@@ -128,7 +128,7 @@ class ChiCuadrada{
         //Redondear k hacia abajo
         k = Math.floor(k)
 
-        var claseGen = this.round5(rango/k)
+        var claseGen = rango/k
         var clase0 = 0.0
         var clase = 0.0
         var rango_clase = [0,0]
@@ -187,14 +187,41 @@ class ChiCuadrada{
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     tabla_red[nm][2] = probabilidad
                 }
+
+                
+                //FEI = PROBABILIDAD*MUESTRA.LENGTH
+                var resta = 0.0
+                var xi2 = 0.0
+                for(var nm = 0; nm < tabla_red_length; nm++){
+                    fei = tabla_red[nm][2] * muestra.length
+                    tabla_red[nm][3] = Math.round(fei * 1000) / 1000
+
+                    // cada frecuencia observado FO[i]-FE[i]
+                    resta = tabla_red[nm][1]-tabla_red[nm][3]
+
+                    //Elevar al cuadrado la resta (FO[i]-FE[i]))^2
+                    xi2 = (resta **2)/tabla_red[nm][3]
+                    tabla_red[nm][4] = Math.round(xi2 * 1000) / 1000
+
+                }
+
+                for(var i=0;i<tabla_red_length;i++){
+                    for(var j=0;j<tabla_red[i].length;j++){
+                     sumRes[j] = (sumRes[j] || 0) + tabla_red[i][j];                    
+                     sumRes[j] = Math.round(sumRes[j] * 1000) / 1000
+
+                    }
+                }
+                tabla_red.push(sumRes);
+
                 break;
+
             //binomial
             case 1:
                 for(var nm = 0; nm < tabla_red_length; nm++){
                     var helper = n - tabla_red[nm][1] 
                     var nCx = this.factorialRecursivo(n) / (this.factorialRecursivo(tabla_red[nm][1][0]))*(this.factorialRecursivo(helper))
 
-                    //FALTA CUAL SERIA LA PROBABILIDAD DE EXITOS
                     //probabilidad = nCx 
                     tabla_red[nm][2][0] = probabilidad
                 }
@@ -275,6 +302,7 @@ class ChiCuadrada{
                     }
                 }
                 tabla_red.push(sumRes);
+                break;
             }     
 
         //Dividir entre el valor esperado de la tabla 
@@ -304,4 +332,4 @@ alpha = 0.05
 
 
 
-obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.exponencial_negativa,obj.tabla_alpha[String(alpha)])
+obj.pruebaChiCuadrada(muestra, obj.modelo_teorico.uniforme,obj.tabla_alpha[String(alpha)])
