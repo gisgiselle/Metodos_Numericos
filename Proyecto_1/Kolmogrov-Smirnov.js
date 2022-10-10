@@ -4,6 +4,7 @@ class Kolmogrov_Smirnov {
         var sn = []
         var fx = []
         var fx2 = []
+        var d = 0
         //Ordenar frecuencias observables
         //muestra.push(0)
         muestra.sort()
@@ -24,23 +25,22 @@ class Kolmogrov_Smirnov {
             var div = (Math.abs(muestra[i]-sn[i]))
             div = Math.round(div * 10000) / 10000
             fx.push(div)
-
+            
+          
             var div2 = 0
             if(i == 0){
                 div2 = (Math.abs(muestra[i]))
-                console.log("sn[i] = "+sn[i])
-                console.log("div2 = "+div2)
                 
             } else {
                 var resta = Math.abs(sn[i-1]-muestra[i])
-                console.log("sn[i] = "+sn[i])
                 div2 = resta
-                console.log(resta)
             }
            
             div2 = Math.round(div2 * 10000) / 10000
             fx2.push(div2)
 
+
+            
             
             
             tabla.push([muestra[i], sn[i],fx[i],fx2[i]])
@@ -49,10 +49,18 @@ class Kolmogrov_Smirnov {
         }
         
 
+        var d_max = Math.max(...fx)
 
-        
+        var d_min = Math.max(...fx2)
+
+        d = Math.max(d_max, d_min)
+
+        var len = muestra.length
+        tabla[0][4] = d_max
+        tabla[1][4] = d_min
+        tabla[2][4]= d
+
         console.table(tabla)
-
     }
 }
 
