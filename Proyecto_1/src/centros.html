@@ -53,14 +53,16 @@
 
     return flag;
 
-    document.getElementById("gen").addEventListener("click", func())
+    document.getElementById("gen").addEventListener("click", squareCenterMethod())
     
     function squareCenterMethod(seed){
+        alert("Aaaaaaa")
         /*diccionario que recibe como llave el número aleatorio
         funciona para identificar en qué momento se repite un número aleatorio
         y así detener el loop v*/
         var randomNumbersDict = {}
 
+        var ranNumArr = []
         /*Recibe una semilla y la eleva al cuadrado, obteniendo un número
          de 8 dígitos. Se le quitan 2 números de la izquierda y 2 de la derecha.
          El número reducido es la nueva semilla. 
@@ -99,12 +101,37 @@
                 
             }    
             console.log(randomNumber)
-
+            ranNumArr =randomNumber
             seed = randomNumber
            
 
         }
+
+        var myTable = "<table><tr>";
+
+        // (C2) LOOP THROUGH ARRAY & GENERATE ROWS-CELLS
+        var perrow = 2; // 2 CELLS PER ROW
+        data.forEach((value, i) => {
+        // "NORMAL" CELL
+        myTable += `<td>${value}</td>`;
         
+        // CLICK ON CELL TO DO SOMETHING
+        // myTable += `<td onclick="FUNCTION()">${value}</td>`;
+        
+        // TO PASS IN A RUNNING NUMBER OR PARAMETER
+        // myTable += `<td onclick="FUNCTION(${i})">${value}</td>`;
+        
+        // BREAK INTO NEXT ROW
+        var next = i + 1;
+        if (next%perrow==0 && next!=data.length) { myTable += "</tr><tr>"; }
+        });
+
+        // (C3) CLOSE THE TABLE STRING
+        myTable += "</tr></table>";
+        
+        // (D) ATTACH HTML TO CONTAINER
+        document.getElementById("container").innerHTML = myTable;
+
     }
 
 }   
