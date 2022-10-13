@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <link href="./view/css/centros.css" rel="stylesheet" />
+        <link href="./view/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container-fluid px-1 py-5 mx-auto">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                    <h3>Método de los centros cuadrados</h3>
+                    <div class="card">
+                        <form class="form-card" onsubmit="event.preventDefault()">
+                            <div class="row justify-content-center text-center">
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Semilla<span class="text-danger"> *</span></label> <input type="text" id="fSemilla" name="fname" placeholder="Ingresa la semilla de 4 dígitos" onblur="validate(1)"> </div>
+                            </div>
+
+                            <div  class="row justify-content-center">
+                                <p> </p>
+                                <div class="form-group col-sm-6" > <button type="submit" class="btn-block btn-primary" id="gen" >Generar</button> </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+        <script>
+    
+    function validate(val) {
+    v1 = document.getElementById("fSemilla");
+
+    flag1 = true;
+    v1.value = val
+
+
+    if(val>=1 || val==0) {
+        if(v1.value == "") {
+            v1.style.borderColor = "red";
+            flag1 = false;
+            alert("Ingresa un valor válido")
+            location.reload()
+        }
+        else {
+            v1.style.borderColor = "green";
+            flag1 = true;
+            squareCenterMethod(parseInt(v1.value))
+        }
+    }
+
+    flag = flag1 
+
+    return flag;
+
+    document.getElementById("gen").addEventListener("click", func())
+    
+    function squareCenterMethod(seed){
+        /*diccionario que recibe como llave el número aleatorio
+        funciona para identificar en qué momento se repite un número aleatorio
+        y así detener el loop v*/
+        var randomNumbersDict = {}
+
+        /*Recibe una semilla y la eleva al cuadrado, obteniendo un número
+         de 8 dígitos. Se le quitan 2 números de la izquierda y 2 de la derecha.
+         El número reducido es la nueva semilla. 
+         Si el número aleatorio obtenido ya se encuentra en el diccionario, 
+         se le asigna el valor de 2 y se termina el loop
+         */
+        while (randomNumbersDict[seed] == 1 || randomNumbersDict[seed] == null){   
+            var generator = Math.pow(seed, 2)
+
+            if (String(generator).length < 8){
+            generator = String(generator).padStart(8,'0')
+            }
+            
+            let changeToArray = num => Number(num)
+            var seedArray = Array.from(String(generator),changeToArray)
+            
+            //Elimina primeros dos dígitos 
+            generator = seedArray.slice(0,-2)
+            //Elimina los dos últimos digitos
+            generator = seedArray.splice(2,4)
+            
+            var randomNumber = Number(generator.join(''))
+
+            var Ri = randomNumber/10000
+
+            
+
+            if(randomNumber in randomNumbersDict == false){
+                randomNumbersDict[randomNumber]=1
+                
+            }else {
+                randomNumbersDict[randomNumber]=2
+
+                return randomNumber
+
+                
+            }    
+            console.log(randomNumber)
+
+            seed = randomNumber
+           
+
+        }
+        
+    }
+
+}   
+    </script>
+</html>

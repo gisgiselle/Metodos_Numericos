@@ -1,17 +1,6 @@
-/** Clase para generar números aleatorios entre 0 y 1.
- * 
- * @class
- * Utiliza el método de centros cuadrados, 
- * también llamado cuadrados medios*/  
-class CentrosCuadrados {
 
-
-    /** Realiza el cálculo para generar números aleatorios
-     * 
-     * @param {int} seed - Semilla generadora.
-     *  Debe ser un número entero de 4 dígitos decimales
-     */
-    squareCenterMethod(seed){
+    function squareCenterMethod(seed){
+        alert("calculando centros")
         /*diccionario que recibe como llave el número aleatorio
         funciona para identificar en qué momento se repite un número aleatorio
         y así detener el loop v*/
@@ -61,7 +50,6 @@ class CentrosCuadrados {
 
         }
     }
-}
 
 
 //const obj = new CentrosCuadrados()
